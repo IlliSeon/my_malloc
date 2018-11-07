@@ -48,7 +48,7 @@ void mem_init()
 
 void *mem_malloc(size_t size)
 {
-     struct mem_list *p;
+         struct mem_list *p;
 	 struct mem_list *temp1,*temp2;
 	
 	 if(size==0)
