@@ -33,7 +33,7 @@ static   struct  mem_list *ram_free;
 void mem_init()
 {
 	 siz_t=sizeof(struct mem_list);
-     ram_start=(struct mem_list *)(__HEAP_START);
+         ram_start=(struct mem_list *)(__HEAP_START);
 	 ram_start->previous=NULL;
 	 ram_start->next=(struct mem_list*)((__HEAP_END)-(sizeof(struct mem_list) ));
 	 ram_start->used=0; 
@@ -48,12 +48,12 @@ void mem_init()
 
 void *mem_malloc(size_t size)
 {
-     struct mem_list *p;
+         struct mem_list *p;
 	 struct mem_list *temp1,*temp2;
 	
 	 if(size==0)
 	 {
-		return NULL;	
+	    return NULL;	
 	 }
 	 if(size<MIN_MEM_SIZE)
 	 {
@@ -71,10 +71,10 @@ void *mem_malloc(size_t size)
 			 {
 				  /*if the remain data rom is smaller than MIN_MEM_SIZE
 				   *we do not creat the block control header ,when next time we free prev block 
-           *this 	remained data rom will combine with the prev block we freed.*/	
+                                   *this remained data rom will combine with the prev block we freed.*/	
 				 if( ( ( (size_t)(  (uint32_t)*&(p->next)-(uint32_t)*&p ) )-size)>MIN_MEM_SIZE  )  
 				 {
-			    temp1=(struct mem_list *)((uint32_t)*&p+sizeof(struct mem)+size);/*next block addr is   base_addr+offect
+			          temp1=(struct mem_list *)((uint32_t)*&p+sizeof(struct mem)+size);/*next block addr is   base_addr+offect
                                                          				 p+ ( size+ sizeof(struct mem_list) )*/
 				  temp1->next=p->next;
 				  temp1->previous=p;
@@ -90,22 +90,22 @@ void *mem_malloc(size_t size)
 
 error_t mem_free(void *p)
 {
-   error_t  error;
-	 struct  mem_list *temp1,*temp2;
-	 error=NOERROR;
-	 /*check param is illegal*/
+	error_t  error;
+	struct  mem_list *temp1,*temp2;
+	error=NOERROR;
+	/*check param is illegal*/
 	 if((uint32_t)*&p>__HEAP_END ||(uint32_t)*&p<__HEAP_START)
 	 {
 	    error=PARAM_ILLEGALITY;
 		  return  error;
 	 }
-   else
+	 else
 	 {
-		  if((uint32_t)*&p<(uint32_t)*&ram_free)
-			{
-			   ram_free=p;
-				 ram_free->used=0;/*set this block falg unused*/
-				 return error;
-			}
+		 if((uint32_t)*&p<(uint32_t)*&ram_free)
+		{
+			 ram_free=p;
+			 ram_free->used=0;/*set this block falg unused*/
+			 return error;
+		}
 	 }
 }

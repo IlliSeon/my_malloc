@@ -3,10 +3,11 @@
 
 typedef enum
 {
-	NOERROR=0,
+    NOERROR=0,
     PARAM_ILLEGALITY,	
 
 }error_t;
+
 #define  KEIL
 #define  MIN_MEM_SIZE     20
 #define  MEM_ALIGNMENT    1
